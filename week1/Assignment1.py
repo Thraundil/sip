@@ -101,6 +101,16 @@ def task3():
 #                             Task 5
 #------------------------------------------------------------------------
 
+def task5():
+    rgb_img  = imread('images/football.jpg')
+    plt.imshow(rgb_img)
+    plt.title('Original RGB image')
+    plt.show()
+
+    gray_img = (rgb_img[:,:,0] * 0.299) + (rgb_img[:,:,1] * 0.587) + (rgb_img[:,:,2] * 0.114)
+    plt.imshow(gray_img, cmap='gray')
+    plt.title('Gray image, via perceptually pleasing transformation')
+    plt.show()
 
 # -----------------------------------------------------------------------
 #                             Task 6
@@ -133,9 +143,9 @@ def task3():
 
 #task1()
 #task2()
-task3()
+#task3()
 #task4()
-#task5()
+task5()
 #task6()
 #task7()
 #task8()

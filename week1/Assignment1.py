@@ -96,6 +96,16 @@ def task3():
 #                             Task 4
 #------------------------------------------------------------------------
 
+def task4():
+    img1 = imread('images/toycars1.png')
+    img2 = imread('images/toycars2.png')
+    img1 = img1 * 0.5
+    img2 =  img2 * 2.0
+    img3 = img1 * img2
+    img3[img3<255] = 255
+    imshow(img3)
+    show()
+
 
 # -----------------------------------------------------------------------
 #                             Task 5

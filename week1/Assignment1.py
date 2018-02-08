@@ -27,6 +27,48 @@ plt.show()
 #                             Task 2
 #------------------------------------------------------------------------
 
+def task2():
+    img = imread('week 1/pout.tif')
+
+    list = []
+    mask = 1
+    for i in range(8):
+        bits = np.bitwise_and(img, mask)
+        # imshow(bits,cmap='gray')
+        mask *= 2
+        list.append(bits)
+        # show()
+
+    f, axarr = plt.subplots(4, 2)
+    axarr[0, 0].imshow(list[0], cmap='gray')
+    axarr[0, 0].set_title('First bit')
+    axarr[0, 1].imshow(list[1], cmap='gray')
+    axarr[0, 1].set_title('Second bit')
+    axarr[1, 0].imshow(list[2], cmap='gray')
+    axarr[1, 0].set_title('Third bit')
+    axarr[1, 1].imshow(list[3], cmap='gray')
+    axarr[1, 1].set_title('Fourth bit')
+    axarr[2, 0].imshow(list[4], cmap='gray')
+    axarr[2, 0].set_title('Fifth bit')
+    axarr[2, 1].imshow(list[5], cmap='gray')
+    axarr[2, 1].set_title('Sixth bit')
+    axarr[3, 0].imshow(list[6], cmap='gray')
+    axarr[3, 0].set_title('Seventh bit')
+    axarr[3, 1].imshow(list[7], cmap='gray')
+    axarr[3, 1].set_title('Eighth bit')
+
+    # Fine-tune figure; hide x ticks for top plots and y ticks for right plots
+    plt.setp([a.get_xticklabels() for a in axarr[0, :]], visible=False)
+    plt.setp([a.get_xticklabels() for a in axarr[1, :]], visible=False)
+    plt.setp([a.get_xticklabels() for a in axarr[2, :]], visible=False)
+    plt.setp([a.get_xticklabels() for a in axarr[3, :]], visible=False)
+    plt.setp([a.get_yticklabels() for a in axarr[:, 0]], visible=False)
+    plt.setp([a.get_yticklabels() for a in axarr[:, 1]], visible=False)
+
+    f.subplots_adjust(left=0.125, bottom=0.1, right=0.9, top=0.9,
+                      wspace=0.0, hspace=0.5)
+
+    plt.show()
 
 # -----------------------------------------------------------------------
 #                             Task 3

@@ -1,9 +1,14 @@
 from matplotlib.pyplot import imshow, show
 import matplotlib.pyplot as plt
 from skimage.io import imread
+from skimage.color import rgb2hsv
 from pylab import ginput
 import numpy as np
 
+
+# -----------------------------------------------------------------------
+#                             Task 1
+#------------------------------------------------------------------------
 
 Z = np.random.randint(255, size=(20,20))  # Test data
 plt.imshow(Z, cmap='gray',interpolation='nearest')
@@ -13,25 +18,37 @@ print('You clicked: ' + str(coord))
 coord = np.around(coord)
 print (coord)
 Z[coord[0,1],coord[0,0]] = 0
-plt.show()
 
 plt.imshow(Z, cmap='gray',interpolation='nearest')
 
 plt.show()
 
-
 # -----------------------------------------------------------------------
 #                             Task 2
 #------------------------------------------------------------------------
-
-img = imread('tbp.png')
-
 
 
 # -----------------------------------------------------------------------
 #                             Task 3
 #------------------------------------------------------------------------
 
+def task3():
+    rgb_img = imread('images/monster.jpg')
+    plt.imshow(rgb_img)
+    plt.title('RGB')
+    plt.show()
+
+    plt.imshow(rgb2hsv(rgb_img)[:,:,0],cmap='gray')
+    plt.title('HUE')
+    plt.show()
+
+    plt.imshow(rgb2hsv(rgb_img)[:,:,1],cmap='gray')
+    plt.title('SATURATION')
+    plt.show()
+
+    plt.imshow(rgb2hsv(rgb_img)[:,:,2],cmap='gray')
+    plt.title('INTENSITY')
+    plt.show()
 
 # -----------------------------------------------------------------------
 #                             Task 4
@@ -67,3 +84,18 @@ img = imread('tbp.png')
 #                             Task 10
 #------------------------------------------------------------------------
 
+
+# -----------------------------------------------------------------------
+#                             MAIN/TESTS
+#------------------------------------------------------------------------
+
+#task1()
+#task2()
+task3()
+#task4()
+#task5()
+#task6()
+#task7()
+#task8()
+#task9()
+#task10()

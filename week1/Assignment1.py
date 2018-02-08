@@ -1,0 +1,28 @@
+from matplotlib.pyplot import imshow, show
+import matplotlib.pyplot as plt
+from skimage.io import imread
+from pylab import ginput
+import numpy as np
+
+
+Z = np.random.randint(255, size=(20,20))  # Test data
+plt.imshow(Z, cmap='gray',interpolation='nearest')
+print('Click on 3 points in the image')
+coord = ginput(1)
+print('You clicked: ' + str(coord))
+coord = np.around(coord)
+print (coord)
+Z[coord[0,1],coord[0,0]] = 0
+plt.show()
+
+plt.imshow(Z, cmap='gray',interpolation='nearest')
+
+plt.show()
+
+
+# -----------------------------------------------------------------------
+#                             Task 2
+#------------------------------------------------------------------------
+
+img = imread('tbp.png')
+

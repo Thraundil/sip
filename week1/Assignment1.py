@@ -37,7 +37,7 @@ def task1():
 #------------------------------------------------------------------------
 
 def task2():
-    img = imread('week 1/pout.tif')
+    img = imread('images/pout.tif')
 
     list = []
     mask = 1
@@ -48,7 +48,7 @@ def task2():
         list.append(bits)
         # show()
 
-    f, axarr = plt.subplots(4, 2)
+    f, axarr = plt.subplots(2, 4)
     axarr[0, 0].imshow(list[0], cmap='gray')
     axarr[0, 0].set_title('First bit')
     axarr[0, 0].set_xlabel('')
@@ -59,46 +59,46 @@ def task2():
     axarr[0, 1].set_xlabel('')
     axarr[0, 1].set_ylabel('')
 
-    axarr[1, 0].imshow(list[2], cmap='gray')
-    axarr[1, 0].set_title('Third bit')
+    axarr[0, 2].imshow(list[2], cmap='gray')
+    axarr[0, 2].set_title('Third bit')
+    axarr[0, 2].set_xlabel('')
+    axarr[0, 2].set_ylabel('')
+
+    axarr[0, 3].imshow(list[3], cmap='gray')
+    axarr[0, 3].set_title('Fourth bit')
+    axarr[0, 3].set_xlabel('')
+    axarr[0, 3].set_ylabel('')
+
+    axarr[1, 0].imshow(list[4], cmap='gray')
+    axarr[1, 0].set_title('Fifth bit')
     axarr[1, 0].set_xlabel('')
     axarr[1, 0].set_ylabel('')
 
-    axarr[1, 1].imshow(list[3], cmap='gray')
-    axarr[1, 1].set_title('Fourth bit')
+    axarr[1, 1].imshow(list[5], cmap='gray')
+    axarr[1, 1].set_title('Sixth bit')
     axarr[1, 1].set_xlabel('')
     axarr[1, 1].set_ylabel('')
 
-    axarr[2, 0].imshow(list[4], cmap='gray')
-    axarr[2, 0].set_title('Fifth bit')
-    axarr[2, 0].set_xlabel('')
-    axarr[2, 0].set_ylabel('')
+    axarr[1, 2].imshow(list[6], cmap='gray')
+    axarr[1, 2].set_title('Seventh bit')
+    axarr[1, 2].set_xlabel('')
+    axarr[1, 2].set_ylabel('')
 
-    axarr[2, 1].imshow(list[5], cmap='gray')
-    axarr[2, 1].set_title('Sixth bit')
-    axarr[2, 1].set_xlabel('')
-    axarr[2, 1].set_ylabel('')
-
-    axarr[3, 0].imshow(list[6], cmap='gray')
-    axarr[3, 0].set_title('Seventh bit')
-    axarr[3, 0].set_xlabel('')
-    axarr[3, 0].set_ylabel('')
-
-    axarr[3, 1].imshow(list[7], cmap='gray')
-    axarr[3, 1].set_title('Eighth bit')
-    axarr[3, 1].set_xlabel('')
-    axarr[3, 1].set_ylabel('')
+    axarr[1, 3].imshow(list[7], cmap='gray')
+    axarr[1, 3].set_title('Eighth bit')
+    axarr[1, 3].set_xlabel('')
+    axarr[1, 3].set_ylabel('')
 
     # Fine-tune figure; hide x ticks for top plots and y ticks for right plots
     plt.setp([a.get_xticklabels() for a in axarr[0, :]], visible=False)
     plt.setp([a.get_xticklabels() for a in axarr[1, :]], visible=False)
-    plt.setp([a.get_xticklabels() for a in axarr[2, :]], visible=False)
-    plt.setp([a.get_xticklabels() for a in axarr[3, :]], visible=False)
     plt.setp([a.get_yticklabels() for a in axarr[:, 0]], visible=False)
     plt.setp([a.get_yticklabels() for a in axarr[:, 1]], visible=False)
+    plt.setp([a.get_yticklabels() for a in axarr[:, 2]], visible=False)
+    plt.setp([a.get_yticklabels() for a in axarr[:, 3]], visible=False)
 
     f.subplots_adjust(left=0.125, bottom=0.1, right=0.9, top=0.9,
-                      wspace=0.0, hspace=0.5)
+                      wspace=0.0, hspace=0.2)
 
     plt.show()
 
@@ -368,13 +368,13 @@ def task10():
 #                             MAIN/TESTS
 #------------------------------------------------------------------------
 
-task1()
-#task2()
+#task1()
+task2()
 #task3()
 #task4()
 #task5()
 #task6()
 #task7()
 #task8()
-#task9()
+task9()
 #task10()

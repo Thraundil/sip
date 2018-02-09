@@ -150,6 +150,7 @@ def task4():
     img3 = img1 * img2
     img3[img3<255] = 255
     imshow(img3)
+    plt.title('Blending of images')
     show()
 
 
@@ -341,48 +342,30 @@ def task9():
     f, axarr = plt.subplots(3, 3)
     axarr[0, 0].imshow(stuff[0])
     axarr[0, 0].set_title('First image')
-    axarr[0, 0].set_xlabel('')
-    axarr[0, 0].set_ylabel('')
 
     axarr[0, 1].imshow(stuff[1])
     axarr[0, 1].set_title('Second image')
-    axarr[0, 1].set_xlabel('')
-    axarr[0, 1].set_ylabel('')
 
     axarr[0, 2].imshow(stuff[2])
     axarr[0, 2].set_title('Third image')
-    axarr[0, 2].set_xlabel('')
-    axarr[0, 2].set_ylabel('')
 
     axarr[1, 0].imshow(stuff[3])
     axarr[1, 0].set_title('Fourth image')
-    axarr[1, 0].set_xlabel('')
-    axarr[1, 0].set_ylabel('')
 
     axarr[1, 1].imshow(stuff[4])
     axarr[1, 1].set_title('Fifth image')
-    axarr[1, 1].set_xlabel('')
-    axarr[1, 1].set_ylabel('')
 
     axarr[1, 2].imshow(stuff[5])
     axarr[1, 2].set_title('Sixth image')
-    axarr[1, 2].set_xlabel('')
-    axarr[1, 2].set_ylabel('')
 
     axarr[2, 0].imshow(stuff[6])
     axarr[2, 0].set_title('Seventh image')
-    axarr[2, 0].set_xlabel('')
-    axarr[2, 0].set_ylabel('')
 
     axarr[2, 1].imshow(stuff[7])
     axarr[2, 1].set_title('Eighth image')
-    axarr[2, 1].set_xlabel('')
-    axarr[2, 1].set_ylabel('')
 
     axarr[2, 2].imshow(stuff[8])
     axarr[2, 2].set_title('Ninth image')
-    axarr[2, 2].set_xlabel('')
-    axarr[2, 2].set_ylabel('')
 
     f.subplots_adjust(left=0.125, bottom=0.1, right=0.9, top=0.9,
                       wspace=0.0, hspace=0.2)
@@ -402,15 +385,66 @@ def task9():
 
 def task10():
     img = imread('images/peppers.png')
-    img = img_as_float(img)
-    gamma = 5
-    img **= gamma
-    img[img > 255] = 255
-    plt.imshow(img)
-    colorbar()
-    plt.title('something')
+
+    imgList = []
+    gamma = 2
+    imgList.append(img)
+    for i in range(8):
+        temp_img = img_as_float(img)
+        temp_img **= gamma
+        temp_img[temp_img > 255] = 255
+        imgList.append(temp_img)
+        gamma +=1
+
+    f, axarr = plt.subplots(3, 3)
+    im = axarr[0, 0].imshow(imgList[0])
+    axarr[0, 0].set_title('Orignal image')
+
+    axarr[0, 1].imshow(imgList[1])
+    axarr[0, 1].set_title('Gamma value = 2')
+
+    axarr[0, 2].imshow(imgList[2])
+    axarr[0, 2].set_title('Gamma value = 3')
+    axarr[0, 2].set_xlabel('')
+    axarr[0, 2].set_ylabel('')
+
+    axarr[1, 0].imshow(imgList[3])
+    axarr[1, 0].set_title('Gamma value = 4')
+
+    axarr[1, 1].imshow(imgList[4])
+    axarr[1, 1].set_title('Gamma value = 5')
+
+    axarr[1, 2].imshow(imgList[5])
+    axarr[1, 2].set_title('Gamma value = 6')
+
+    axarr[2, 0].imshow(imgList[6])
+    axarr[2, 0].set_title('Gamma value = 7')
+
+    axarr[2, 1].imshow(imgList[7])
+    axarr[2, 1].set_title('Gamma value = 8')
+
+    im1 = axarr[2, 2].imshow(imgList[8])
+    axarr[2, 2].set_title('Gamma value = 9')
+
+    f.subplots_adjust(left=0.125, bottom=0.1, right=0.9, top=0.9,
+                      wspace=0.0, hspace=0.2)
+    f.suptitle('Image using different gamma values')
+
+    plt.setp([a.get_xticklabels() for a in axarr[0, :]], visible=False)
+    plt.setp([a.get_xticklabels() for a in axarr[1, :]], visible=False)
+    plt.setp([a.get_xticklabels() for a in axarr[2, :]], visible=False)
+    plt.setp([a.get_yticklabels() for a in axarr[:, 0]], visible=False)
+    plt.setp([a.get_yticklabels() for a in axarr[:, 1]], visible=False)
+    plt.setp([a.get_yticklabels() for a in axarr[:, 2]], visible=False)
+
+
+    cbar_ax = f.add_axes([0.85, 0.15, 0.05, 0.7])
+    f.subplots_adjust(right=0.85)
+    f.colorbar(im, cax=cbar_ax)
+
     plt.show()
 
+    plt.title('Blending of images')
 
 # -----------------------------------------------------------------------
 #                             MAIN/TESTS
@@ -421,8 +455,8 @@ def task10():
 #task3()
 #task4()
 #task5()
-task6()
+#task6()
 #task7()
 #task8()
-#task9()
-#task10()
+task9()
+task10()

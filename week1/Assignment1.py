@@ -14,18 +14,16 @@ import numpy as np
 def task1():
     Z = np.random.randint(255, size=(20,20))  # Test data
     plt.imshow(Z, cmap='gray',interpolation='nearest')
-    plt.title('')
-    print('Click on 3 points in the image')
+    print('Click on 1 point in the image')
     coord = ginput(1)
     print('You clicked: ' + str(coord))
     coord = np.around(coord)
     print (coord)
     Z[coord[0,1],coord[0,0]] = 0
 
+    plt.xlabel('X')
+    plt.ylabel('Y')
     plt.imshow(Z, cmap='gray',interpolation='nearest')
-    plt.title("something usefull")
-    plt.xlabel('')
-    plt.ylabel('')
 
     plt.show()
 

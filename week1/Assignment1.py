@@ -108,21 +108,37 @@ def task2():
 
 def task3():
     rgb_img = imread('images/monster.jpg')
-    plt.imshow(rgb_img)
-    plt.title('RGB')
+
+    imglist = []
+    imglist.append(rgb_img)
+    imglist.append(rgb2hsv(rgb_img)[:,:,0])
+    imglist.append(rgb2hsv(rgb_img)[:,:,1])
+    imglist.append(rgb2hsv(rgb_img)[:,:,2])
+
+    f, axarr = plt.subplots(2, 2)
+    axarr[0, 0].imshow(imglist[0])
+    axarr[0, 0].set_title('RGB')
+
+    axarr[0, 1].imshow(imglist[1],cmap='gray')
+    axarr[0, 1].set_title('HUE')
+
+    axarr[1, 0].imshow(imglist[2],cmap='gray')
+    axarr[1, 0].set_title('SATURATION')
+
+    axarr[1, 1].imshow(imglist[3],cmap='gray')
+    axarr[1, 1].set_title('INTENSITY')
+
+    f.subplots_adjust(left=0.125, bottom=0.1, right=0.9, top=0.9,
+                      wspace=0.0, hspace=0.2)
+
+    plt.setp([a.get_xticklabels() for a in axarr[0, :]], visible=False)
+    plt.setp([a.get_xticklabels() for a in axarr[1, :]], visible=False)
+    plt.setp([a.get_yticklabels() for a in axarr[:, 0]], visible=False)
+    plt.setp([a.get_yticklabels() for a in axarr[:, 1]], visible=False)
+
     plt.show()
 
-    plt.imshow(rgb2hsv(rgb_img)[:,:,0],cmap='gray')
-    plt.title('HUE')
-    plt.show()
 
-    plt.imshow(rgb2hsv(rgb_img)[:,:,1],cmap='gray')
-    plt.title('SATURATION')
-    plt.show()
-
-    plt.imshow(rgb2hsv(rgb_img)[:,:,2],cmap='gray')
-    plt.title('INTENSITY')
-    plt.show()
 
 # -----------------------------------------------------------------------
 #                             Task 4
@@ -147,11 +163,13 @@ def task5():
     rgb_img  = imread('images/football.jpg')
     plt.imshow(rgb_img)
     plt.title('Original RGB image')
+    plt.axis('off')    
     plt.show()
 
     gray_img = (rgb_img[:,:,0] * 0.299) + (rgb_img[:,:,1] * 0.587) + (rgb_img[:,:,2] * 0.114)
     plt.imshow(gray_img, cmap='gray')
     plt.title('Gray image, via perceptually pleasing transformation')
+    plt.axis('off')
     plt.show()
 
 # -----------------------------------------------------------------------
@@ -369,12 +387,12 @@ def task10():
 #------------------------------------------------------------------------
 
 #task1()
-task2()
+#task2()
 #task3()
 #task4()
-#task5()
+task5()
 #task6()
 #task7()
 #task8()
-task9()
+#task9()
 #task10()

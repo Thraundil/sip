@@ -5,6 +5,7 @@ from skimage.color import rgb2hsv
 from skimage.transform import resize
 from pylab import ginput
 import numpy as np
+from skimage import exposure, img_as_float
 
 
 # -----------------------------------------------------------------------
@@ -13,6 +14,8 @@ import numpy as np
 
 def task1():
     Z = np.random.randint(255, size=(20,20))  # Test data
+    plt.xticks(np.arange(0, 20, 1.0))
+    plt.yticks(np.arange(0, 20, 1.0))
     plt.imshow(Z, cmap='gray',interpolation='nearest')
     print('Click on 1 point in the image')
     coord = ginput(1)
@@ -23,6 +26,8 @@ def task1():
 
     plt.xlabel('X')
     plt.ylabel('Y')
+    plt.xticks(np.arange(0, 20, 1.0))
+    plt.yticks(np.arange(0, 20, 1.0))
     plt.imshow(Z, cmap='gray',interpolation='nearest')
 
     plt.show()
@@ -46,43 +51,43 @@ def task2():
     f, axarr = plt.subplots(4, 2)
     axarr[0, 0].imshow(list[0], cmap='gray')
     axarr[0, 0].set_title('First bit')
-    axarr[0, 0].set_xlabel('hej')
-    axarr[0, 0].set_ylabel('hej')
+    axarr[0, 0].set_xlabel('')
+    axarr[0, 0].set_ylabel('')
 
     axarr[0, 1].imshow(list[1], cmap='gray')
     axarr[0, 1].set_title('Second bit')
-    axarr[0, 1].set_xlabel('hej')
-    axarr[0, 1].set_ylabel('hej')
+    axarr[0, 1].set_xlabel('')
+    axarr[0, 1].set_ylabel('')
 
     axarr[1, 0].imshow(list[2], cmap='gray')
     axarr[1, 0].set_title('Third bit')
-    axarr[1, 0].set_xlabel('hej')
-    axarr[1, 0].set_ylabel('hej')
+    axarr[1, 0].set_xlabel('')
+    axarr[1, 0].set_ylabel('')
 
     axarr[1, 1].imshow(list[3], cmap='gray')
     axarr[1, 1].set_title('Fourth bit')
-    axarr[1, 1].set_xlabel('hej')
-    axarr[1, 1].set_ylabel('hej')
+    axarr[1, 1].set_xlabel('')
+    axarr[1, 1].set_ylabel('')
 
     axarr[2, 0].imshow(list[4], cmap='gray')
     axarr[2, 0].set_title('Fifth bit')
-    axarr[2, 0].set_xlabel('hej')
-    axarr[2, 0].set_ylabel('hej')
+    axarr[2, 0].set_xlabel('')
+    axarr[2, 0].set_ylabel('')
 
     axarr[2, 1].imshow(list[5], cmap='gray')
     axarr[2, 1].set_title('Sixth bit')
-    axarr[2, 1].set_xlabel('hej')
-    axarr[2, 1].set_ylabel('hej')
+    axarr[2, 1].set_xlabel('')
+    axarr[2, 1].set_ylabel('')
 
     axarr[3, 0].imshow(list[6], cmap='gray')
     axarr[3, 0].set_title('Seventh bit')
-    axarr[3, 0].set_xlabel('hej')
-    axarr[3, 0].set_ylabel('hej')
+    axarr[3, 0].set_xlabel('')
+    axarr[3, 0].set_ylabel('')
 
     axarr[3, 1].imshow(list[7], cmap='gray')
     axarr[3, 1].set_title('Eighth bit')
-    axarr[3, 1].set_xlabel('hej')
-    axarr[3, 1].set_ylabel('hej')
+    axarr[3, 1].set_xlabel('')
+    axarr[3, 1].set_ylabel('')
 
     # Fine-tune figure; hide x ticks for top plots and y ticks for right plots
     plt.setp([a.get_xticklabels() for a in axarr[0, :]], visible=False)
@@ -288,48 +293,48 @@ def task9():
     f, axarr = plt.subplots(3, 3)
     axarr[0, 0].imshow(stuff[0])
     axarr[0, 0].set_title('First image')
-    axarr[0, 0].set_xlabel('hej')
-    axarr[0, 0].set_ylabel('hej')
+    axarr[0, 0].set_xlabel('')
+    axarr[0, 0].set_ylabel('')
 
     axarr[0, 1].imshow(stuff[1])
     axarr[0, 1].set_title('Second image')
-    axarr[0, 1].set_xlabel('hej')
-    axarr[0, 1].set_ylabel('hej')
+    axarr[0, 1].set_xlabel('')
+    axarr[0, 1].set_ylabel('')
 
     axarr[0, 2].imshow(stuff[2])
     axarr[0, 2].set_title('Third image')
-    axarr[0, 2].set_xlabel('hej')
-    axarr[0, 2].set_ylabel('hej')
+    axarr[0, 2].set_xlabel('')
+    axarr[0, 2].set_ylabel('')
 
     axarr[1, 0].imshow(stuff[3])
     axarr[1, 0].set_title('Fourth image')
-    axarr[1, 0].set_xlabel('hej')
-    axarr[1, 0].set_ylabel('hej')
+    axarr[1, 0].set_xlabel('')
+    axarr[1, 0].set_ylabel('')
 
     axarr[1, 1].imshow(stuff[4])
     axarr[1, 1].set_title('Fifth image')
-    axarr[1, 1].set_xlabel('hej')
-    axarr[1, 1].set_ylabel('hej')
+    axarr[1, 1].set_xlabel('')
+    axarr[1, 1].set_ylabel('')
 
     axarr[1, 2].imshow(stuff[5])
     axarr[1, 2].set_title('Sixth image')
-    axarr[1, 2].set_xlabel('hej')
-    axarr[1, 2].set_ylabel('hej')
+    axarr[1, 2].set_xlabel('')
+    axarr[1, 2].set_ylabel('')
 
     axarr[2, 0].imshow(stuff[6])
     axarr[2, 0].set_title('Seventh image')
-    axarr[2, 0].set_xlabel('hej')
-    axarr[2, 0].set_ylabel('hej')
+    axarr[2, 0].set_xlabel('')
+    axarr[2, 0].set_ylabel('')
 
     axarr[2, 1].imshow(stuff[7])
     axarr[2, 1].set_title('Eighth image')
-    axarr[2, 1].set_xlabel('hej')
-    axarr[2, 1].set_ylabel('hej')
+    axarr[2, 1].set_xlabel('')
+    axarr[2, 1].set_ylabel('')
 
     axarr[2, 2].imshow(stuff[8])
     axarr[2, 2].set_title('Ninth image')
-    axarr[2, 2].set_xlabel('hej')
-    axarr[2, 2].set_ylabel('hej')
+    axarr[2, 2].set_xlabel('')
+    axarr[2, 2].set_ylabel('')
 
     f.subplots_adjust(left=0.125, bottom=0.1, right=0.9, top=0.9,
                       wspace=0.0, hspace=0.2)
@@ -353,16 +358,17 @@ def task10():
     gamma = 5
     img **= gamma
     img[img > 255] = 255
-    imshow(img)
+    plt.imshow(img)
     colorbar()
-    show()
+    plt.title('something')
+    plt.show()
 
 
 # -----------------------------------------------------------------------
 #                             MAIN/TESTS
 #------------------------------------------------------------------------
 
-#task1()
+task1()
 #task2()
 #task3()
 #task4()
@@ -370,5 +376,5 @@ def task10():
 #task6()
 #task7()
 #task8()
-task9()
+#task9()
 #task10()

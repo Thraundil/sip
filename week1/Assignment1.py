@@ -138,8 +138,6 @@ def task3():
 
     plt.show()
 
-
-
 # -----------------------------------------------------------------------
 #                             Task 4
 #------------------------------------------------------------------------
@@ -189,14 +187,14 @@ def task6():
     plt.axis('off')
     plt.show()
 
-    small_img = resize(rgb_img, (50,62))
-    plt.imshow(small_img)
-    plt.title('Resized image, (50,62)')
+    plt.imshow(resize(rgb_img, (10,12)))
+    plt.title('Resized image, (10,12)')
     plt.axis('off')
     plt.show()
 
-    plt.imshow(resize(rgb_img, (10,12)))
-    plt.title('Resized image, (10,12)')
+    small_img = resize(rgb_img, (50,62))
+    plt.imshow(small_img)
+    plt.title('Resized image, (50,62)')
     plt.axis('off')
     plt.show()
 
@@ -208,12 +206,44 @@ def task6():
         # 3: Bi-cubic - Okay
         # 4: Bi-quartic - Bad
         # 5: Bi-quintic - Bad
-    for x in range(0,6):
-        plt.imshow(resize(small_img, (500,610), order = x))
-        plt.title('Resized image, (500,610): order=' + str(x))
-        plt.axis('off')
-        plt.show()
 
+    imglist = []
+    imglist.append((resize(small_img, (500,610), order = 0)))
+    imglist.append((resize(small_img, (500,610), order = 1)))
+    imglist.append((resize(small_img, (500,610), order = 2)))
+    imglist.append((resize(small_img, (500,610), order = 3)))
+    imglist.append((resize(small_img, (500,610), order = 4)))
+    imglist.append((resize(small_img, (500,610), order = 5)))
+
+    f, axarr = plt.subplots(2, 3)
+    axarr[0, 0].imshow(imglist[0])
+    axarr[0, 0].set_title('order 0 - Nearest Neighbor')
+
+    axarr[0, 1].imshow(imglist[1])
+    axarr[0, 1].set_title('order 1 - Bi-linear')
+
+    axarr[1, 0].imshow(imglist[2])
+    axarr[1, 0].set_title('order 2 - Bi-quadratic')
+
+    axarr[1, 1].imshow(imglist[3])
+    axarr[1, 1].set_title('order 3 - Bi-cubic')
+
+    axarr[0, 2].imshow(imglist[4])
+    axarr[0, 2].set_title('order 4 - Bi-quartic')
+
+    axarr[1, 2].imshow(imglist[5])
+    axarr[1, 2].set_title('order 5 - BI-quintic')
+
+    f.subplots_adjust(left=0.125, bottom=0.1, right=0.9, top=0.9,
+                      wspace=0.0, hspace=0.2)
+
+    plt.setp([a.get_xticklabels() for a in axarr[0, :]], visible=False)
+    plt.setp([a.get_xticklabels() for a in axarr[1, :]], visible=False)
+    plt.setp([a.get_yticklabels() for a in axarr[:, 0]], visible=False)
+    plt.setp([a.get_yticklabels() for a in axarr[:, 1]], visible=False)
+    plt.setp([a.get_yticklabels() for a in axarr[:, 2]], visible=False)
+
+    plt.show()
 
 # -----------------------------------------------------------------------
 #                             Task 7
@@ -390,8 +420,8 @@ def task10():
 #task2()
 #task3()
 #task4()
-task5()
-#task6()
+#task5()
+task6()
 #task7()
 #task8()
 #task9()

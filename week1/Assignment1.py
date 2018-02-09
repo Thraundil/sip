@@ -131,7 +131,21 @@ def task5():
 # -----------------------------------------------------------------------
 #                             Task 7
 #------------------------------------------------------------------------
-
+def task7():
+  railway_img = imread('images/railway.png')
+  plt.imshow(railway_img)
+  
+  # Select the 2 points of the railway sleepers in the foreground
+  coord_f = np.around(ginput(2))
+  len_f = (coord_f[1] - coord_f[0])[0]
+  print('\nRailway sleeper coordinates (foreground): ', coord_f[0], coord_f[1])
+  print('\nPixel length of railway sleepers in front is: ', len_f)
+  
+  # Select the 2 points of the railway sleepers in the background
+  coord_b = np.around(ginput(2))
+  len_b = (coord_b[1] - coord_b[0])[0]
+  print('\nRailway sleeper coordinates (background): ', coord_b[0], coord_b[1])
+  print('\nPixel length of railway sleepers in back is: ', len_b)
 
 # -----------------------------------------------------------------------
 #                             Task 8

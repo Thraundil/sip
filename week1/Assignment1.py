@@ -2,6 +2,7 @@ from matplotlib.pyplot import imshow, show
 import matplotlib.pyplot as plt
 from skimage.io import imread
 from skimage.color import rgb2hsv
+from skimage.transform import resize
 from pylab import ginput
 import numpy as np
 
@@ -127,6 +128,44 @@ def task5():
 #                             Task 6
 #------------------------------------------------------------------------
 
+def task6():
+    rgb_img = imread('images/monster.jpg')
+    plt.imshow(rgb_img)
+    plt.title('Original size')
+    plt.axis('off')
+    plt.show()
+
+    # Part 1, reducing
+    plt.imshow(resize(rgb_img, (192,252)))
+    plt.title('Resized image, (192,252)')
+    plt.axis('off')
+    plt.show()
+
+    small_img = resize(rgb_img, (50,62))
+    plt.imshow(small_img)
+    plt.title('Resized image, (50,62)')
+    plt.axis('off')
+    plt.show()
+
+    plt.imshow(resize(rgb_img, (10,12)))
+    plt.title('Resized image, (10,12)')
+    plt.axis('off')
+    plt.show()
+
+    # Part 2, upsizing
+    # Orders:
+        # 0: Nearest-neighbor - Best
+        # 1: Bi-linear (default) - Good
+        # 2: Bi-quadratic - Bad
+        # 3: Bi-cubic - Okay
+        # 4: Bi-quartic - Bad
+        # 5: Bi-quintic - Bad
+    for x in range(0,6):
+        plt.imshow(resize(small_img, (500,610), order = x))
+        plt.title('Resized image, (500,610): order=' + str(x))
+        plt.axis('off')
+        plt.show()
+
 
 # -----------------------------------------------------------------------
 #                             Task 7
@@ -151,10 +190,48 @@ def task7():
 #                             Task 8
 #------------------------------------------------------------------------
 
+def task8():
+    # Load in the images
+    img1 = imread('images/cameraman.tif')
+    img2 = imread('images/rice.png')
+    print (img1.shape, img2.shape)
+
+    # Resize the image
+    img1 = resize(img1, (200,200), mode='reflect')
+    img2 = np.resize(img2,(200,200))
+    # multiply the image with 255 to make the range go from
+    # 0 - 255 instead of 0 - 1
+    img1 *= 255
+    # make it integer values by throwing away the decimals
+    img1 = np.around(img1)
+
+    # add the images
+    added_img = img1 + img2
+    # make sure no value is greater than 255
+    added_img[added_img > 255] = 255
+    # Subtract the images
+    minus_img = img1 - img2
+    # Make sure no value is less than 0
+    minus_img[minus_img < 0] = 0
+    # visualize the resulting images
+    plt.imshow(added_img)
+    plt.xlabel('')
+    plt.ylabel('')
+    plt.axis('off')
+    plt.title('Adding two images')
+
+    show()
+    imshow(minus_img)
+    plt.xlabel('')
+    plt.ylabel('')
+    plt.axis('off')
+    plt.title('subtracting two images')
+    show()
 
 # -----------------------------------------------------------------------
 #                             Task 9
 #------------------------------------------------------------------------
+
 
 
 # -----------------------------------------------------------------------
@@ -171,7 +248,7 @@ def task7():
 #task3()
 #task4()
 #task5()
-#task6()
+task6()
 #task7()
 #task8()
 #task9()

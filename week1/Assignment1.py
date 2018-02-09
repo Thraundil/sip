@@ -2,6 +2,7 @@ from matplotlib.pyplot import imshow, show
 import matplotlib.pyplot as plt
 from skimage.io import imread
 from skimage.color import rgb2hsv
+from skimage.transform import resize
 from pylab import ginput
 import numpy as np
 
@@ -127,6 +128,44 @@ def task5():
 #                             Task 6
 #------------------------------------------------------------------------
 
+def task6():
+    rgb_img = imread('images/monster.jpg')
+    plt.imshow(rgb_img)
+    plt.title('Original size')
+    plt.axis('off')
+    plt.show()
+
+    # Part 1, reducing
+    plt.imshow(resize(rgb_img, (192,252)))
+    plt.title('Resized image, (192,252)')
+    plt.axis('off')
+    plt.show()
+
+    small_img = resize(rgb_img, (50,62))
+    plt.imshow(small_img)
+    plt.title('Resized image, (50,62)')
+    plt.axis('off')
+    plt.show()
+
+    plt.imshow(resize(rgb_img, (10,12)))
+    plt.title('Resized image, (10,12)')
+    plt.axis('off')
+    plt.show()
+
+    # Part 2, upsizing
+    # Orders:
+        # 0: Nearest-neighbor - Best
+        # 1: Bi-linear (default) - Good
+        # 2: Bi-quadratic - Bad
+        # 3: Bi-cubic - Okay
+        # 4: Bi-quartic - Bad
+        # 5: Bi-quintic - Bad
+    for x in range(0,6):
+        plt.imshow(resize(small_img, (500,610), order = x))
+        plt.title('Resized image, (500,610): order=' + str(x))
+        plt.axis('off')
+        plt.show()
+
 
 # -----------------------------------------------------------------------
 #                             Task 7
@@ -157,7 +196,7 @@ def task5():
 #task3()
 #task4()
 #task5()
-#task6()
+task6()
 #task7()
 #task8()
 #task9()

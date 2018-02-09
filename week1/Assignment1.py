@@ -147,7 +147,7 @@ def task4():
     img2 = imread('images/toycars2.png')
     img1 = img1 * 0.5
     img2 =  img2 * 2.0
-    img3 = img1 * img2
+    img3 = img1 + img2
     img3[img3<255] = 255
     imshow(img3)
     plt.title('Blending of images')
@@ -453,10 +453,10 @@ def task10():
 #task1()
 #task2()
 #task3()
-#task4()
+task4()
 #task5()
 #task6()
 #task7()
 #task8()
-task9()
-task10()
+#task9()
+#task10()

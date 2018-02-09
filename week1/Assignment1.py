@@ -10,18 +10,19 @@ import numpy as np
 #                             Task 1
 #------------------------------------------------------------------------
 
-Z = np.random.randint(255, size=(20,20))  # Test data
-plt.imshow(Z, cmap='gray',interpolation='nearest')
-print('Click on 3 points in the image')
-coord = ginput(1)
-print('You clicked: ' + str(coord))
-coord = np.around(coord)
-print (coord)
-Z[coord[0,1],coord[0,0]] = 0
+def task1():
+    Z = np.random.randint(255, size=(20,20))  # Test data
+    plt.imshow(Z, cmap='gray',interpolation='nearest')
+    print('Click on 3 points in the image')
+    coord = ginput(1)
+    print('You clicked: ' + str(coord))
+    coord = np.around(coord)
+    print (coord)
+    Z[coord[0,1],coord[0,0]] = 0
 
-plt.imshow(Z, cmap='gray',interpolation='nearest')
+    plt.imshow(Z, cmap='gray',interpolation='nearest')
 
-plt.show()
+    plt.show()
 
 # -----------------------------------------------------------------------
 #                             Task 2
@@ -155,7 +156,7 @@ def task5():
 #task2()
 #task3()
 #task4()
-task5()
+#task5()
 #task6()
 #task7()
 #task8()

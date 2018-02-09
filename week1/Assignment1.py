@@ -273,8 +273,6 @@ def task8():
     # Load in the images
     img1 = imread('images/cameraman.tif')
     img2 = imread('images/rice.png')
-    print (img1.shape, img2.shape)
-
     # Resize the image
     img1 = resize(img1, (200,200), mode='reflect')
     img2 = np.resize(img2,(200,200))
@@ -283,7 +281,6 @@ def task8():
     img1 *= 255
     # make it integer values by throwing away the decimals
     img1 = np.around(img1)
-
     # add the images
     added_img = img1 + img2
     # make sure no value is greater than 255
@@ -294,15 +291,11 @@ def task8():
     minus_img[minus_img < 0] = 0
     # visualize the resulting images
     plt.imshow(added_img)
-    plt.xlabel('')
-    plt.ylabel('')
     plt.axis('off')
     plt.title('Adding two images')
-
     show()
+
     imshow(minus_img)
-    plt.xlabel('')
-    plt.ylabel('')
     plt.axis('off')
     plt.title('subtracting two images')
     show()
@@ -457,6 +450,6 @@ def task10():
 #task5()
 #task6()
 #task7()
-#task8()
-task9()
-task10()
+task8()
+#task9()
+#task10()

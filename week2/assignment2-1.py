@@ -1,5 +1,13 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from skimage.io import imread
+
+
+def cumulative_histogram(hist, N, M):
+  # Compute cumulative histogram and normalize with respect to number of pixels
+  cumsum = np.cumsum(hist)   
+  return cumsum / (N*M)
+
 
 
 # -----------------------------------------------------------------------
@@ -7,43 +15,56 @@ import numpy as np
 #------------------------------------------------------------------------
 
 def task_1_3():
-
-
+  # Read pout.tif and compute histogram
+  img = imread('images/pout.tif')
+  hist, bins = np.histogram(img.ravel(),256,[0,256])
+  
+  # Compute its cumulative histogram
+  cumsum_hist = cumulative_histogram(hist, img.shape[0], img.shape[1])
+  
+  # Display the cumulative histogram
+  plt.plot(cumsum_hist)
+  plt.title('Cumulative histogram for \'pout.tif\'')
+  plt.xlabel('Pixel range')
+  plt.ylabel('Cumulative sum')
+  plt.xlim([0,256])
+  plt.show()
+  
 
 # -----------------------------------------------------------------------
 #                             Task 1.4
 #------------------------------------------------------------------------
 
 def task_1_4():
-
+  pass
 
 # -----------------------------------------------------------------------
 #                             Task 1.5
 #------------------------------------------------------------------------
 
 def task_1_5():
-
+  pass
 
 # -----------------------------------------------------------------------
 #                             Task 1.6
 #------------------------------------------------------------------------
 
 def task_1_6():
-
+  pass
 
 # -----------------------------------------------------------------------
 #                             Task 1.7
 #------------------------------------------------------------------------
 
 def task_1_7():
-
+  pass
 
 # -----------------------------------------------------------------------
 #                             Task 1.9
 #------------------------------------------------------------------------
 
 def task_1_9():
-
+  pass
 
 # -----------------------------------------------------------------------
 #                             MAIN/TESTS

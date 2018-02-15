@@ -15,6 +15,11 @@ def cumulative_histogram(hist, N, M):
   return cumsum / (N*M)
 
 
+def pseudo_inverse_cdf(cdf, l):
+  # Get subset of pixel values where f(s) >= l and get minimum of that
+  subset  = np.take(cdf, np.where(cdf >= l))
+  return np.min(subset) 
+
 
 # -----------------------------------------------------------------------
 #                             Task 1.3
@@ -35,8 +40,8 @@ def task_1_3():
   plt.ylabel('Cumulative sum')
   plt.xlim([0,256])
   plt.show()
-  
 
+  
 # -----------------------------------------------------------------------
 #                             Task 1.4
 #------------------------------------------------------------------------
@@ -76,7 +81,10 @@ def task_1_4():
 #------------------------------------------------------------------------
 
 def task_1_5():
+  #l = 0.5
+  #inverse = pseudo_inverse_cdf(cdf, l)
   pass
+  
 
 # -----------------------------------------------------------------------
 #                             Task 1.6
@@ -103,9 +111,9 @@ def task_1_9():
 #                             MAIN/TESTS
 #------------------------------------------------------------------------
 
-#task_1_3()
+task_1_3()
 #task_1_4()
-#task_1_5()
+task_1_5()
 #task_1_6()
 #task_1_7()
 #task_1_9()

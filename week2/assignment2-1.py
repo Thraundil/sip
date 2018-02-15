@@ -1,7 +1,13 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from skimage.io import imread
+from scipy.stats import norm
+from skimage import exposure, img_as_float
 
+
+# -----------------------------------------------------------------------
+#                         General Functions
+#------------------------------------------------------------------------
 
 def cumulative_histogram(hist, N, M):
   # Compute cumulative histogram and normalize with respect to number of pixels
@@ -36,7 +42,34 @@ def task_1_3():
 #------------------------------------------------------------------------
 
 def task_1_4():
-  pass
+  # Read pout.tif(I) and compute histogram and CumSum(C)
+  I = imread('images/pout.tif')
+  hist, bins  = np.histogram(I.ravel(),256,[0,256])
+  C           = np.cumsum(hist)
+  CNormalized = C*256/C.max()
+
+  # Prints the original image 'pout.tif'
+  plt.imshow(I, cmap='gray')
+  plt.show()
+
+  # Shows the normalized CDF (to 256)
+  plt.plot(CNormalized)
+  plt.show()
+
+  # Computes the floating-point image C(I), such that the Intensity at each (x,y) is C(I(x,y))
+  newI  = I
+  (A,B) = I.shape
+  for x in range(0,A):
+    for y in range(0,B):
+      newI[x][y] = CNormalized[(I[x][y])]
+
+  # Prints the new Image, based on 'pout.tif'
+  plt.imshow(newI, cmap='gray')
+  plt.show()
+
+
+
+
 
 # -----------------------------------------------------------------------
 #                             Task 1.5

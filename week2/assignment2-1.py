@@ -17,7 +17,7 @@ def cumulative_histogram(hist, N, M):
 
 def pseudo_inverse_cdf(cdf, l):
   # Get subset of pixel values where f(s) >= l and get minimum of that
-  subset  = np.take(cdf, np.where(cdf >= l))
+  subset  = np.take(range(256), np.where(cdf >= l))
   return np.min(subset) 
 
 
@@ -79,8 +79,7 @@ def task_1_4():
 #------------------------------------------------------------------------
 
 def task_1_5():
-  #l = 0.5
-  #inverse = pseudo_inverse_cdf(cdf, l)
+  #see function pseudo_inverse_cdf()
   pass
   
 

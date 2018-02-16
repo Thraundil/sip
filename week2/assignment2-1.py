@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from skimage.io import imread
+from skimage.transform import resize
 from scipy.stats import norm
 from skimage import exposure, img_as_float
 
@@ -85,7 +86,6 @@ def task_1_4():
   plt.show()
 
 
-
 # -----------------------------------------------------------------------
 #                             Task 1.5
 #------------------------------------------------------------------------
@@ -93,7 +93,7 @@ def task_1_4():
 def task_1_5():
   #see function pseudo_inverse_cdf()
   pass
-  
+
 
 # -----------------------------------------------------------------------
 #                             Task 1.6
@@ -164,7 +164,41 @@ def task_1_7():
 #------------------------------------------------------------------------
 
 def task_1_9():
-  pass
+  # Imports the images, creates histogram, then cumulative histograms.
+  I1 = imread('images/movie_flicker1.tif')
+  I2 = imread('images/movie_flicker2.tif')
+
+  hist1, bins1  = np.histogram(I1.ravel(),256,[0,256])
+  hist2, bins2  = np.histogram(I2.ravel(),256,[0,256])
+  C1 = np.cumsum(hist1)
+  C2 = np.cumsum(hist2)
+
+  # Calculates the midway specification
+  midway = 0.5 * ((C1**(-1.0)) + (C2**(-1.0)))
+
+  # Prints the original 2 images
+  plt.imshow(im, cmap='gray')
+  plt.show()
+  plt.imshow(I2, cmap='gray')
+  plt.show()
+
+  # Computes the floating-point image C(I), such that the Intensity at each (x,y) is C(I(x,y))
+  newI1  = I1
+  newI2  = I2  
+  (A,B,C) = I1.shape
+  for x in range(0,A):
+    for y in range(0,B):
+      newI1[x][y] = midway[(I1[x][y])]
+      newI2[x][y] = midway[(I2[x][y])]
+
+  plt.imshow(newI1, cmap='gray')
+  plt.show()
+
+  plt.imshow(newI2, cmap='gray')
+  plt.show()
+
+
+
 
 # -----------------------------------------------------------------------
 #                             MAIN/TESTS

@@ -20,6 +20,35 @@ def pseudo_inverse_cdf(cdf, l):
   subset  = np.take(range(256), np.where(cdf >= l))
   return np.min(subset) 
 
+  
+def histogram_matching(original, target):
+  # Compute histogram and then the cdf for the two images
+  hist_1, _ = np.histogram(original.ravel(),256,[0,256])
+  hist_2, _ = np.histogram(target.ravel(),256,[0,256])
+  cdf_1 = cumulative_histogram(hist_1, original.shape[0], original.shape[1])
+  cdf_2 = cumulative_histogram(hist_2, target.shape[0], target.shape[1])
+  
+  # Perform histogram matching f = C_2^{-1} * (C_1( img_1 ))
+  l_values = np.linspace(0, 1, num=256)
+  cdf_2_inverse = []
+  for l in l_values:
+    cdf_2_inverse.append(pseudo_inverse_cdf(cdf_2, l))
+  
+  hist_matching = cdf_2_inverse * cdf_1
+    
+  # Plot cumulative histograms for original, target, and histogram matching
+  plt.plot(cdf_1, color='r', label='Original image')
+  plt.plot(cdf_2, color='g', label='Target image')
+  plt.plot(hist_matching, l_values, '-', label='Histogram matching')
+  
+  # Define plot properties
+  plt.title('Cumulative histograms')
+  plt.legend(bbox_to_anchor=(1.2,0.1), loc='lower right', ncol=1)
+  plt.xlabel('Pixel range')
+  plt.ylabel('Cumulative sum')
+  plt.xlim([0,256])
+  plt.show()
+  
 
 # -----------------------------------------------------------------------
 #                             Task 1.3
@@ -88,7 +117,10 @@ def task_1_5():
 #------------------------------------------------------------------------
 
 def task_1_6():
-  pass
+  # Define original and target image and perform histogram matching
+  img_1 = imread('images/pout.tif')
+  img_2 = imread('images/cameraman.tif')
+  histogram_matching(img_1, img_2)
 
 # -----------------------------------------------------------------------
 #                             Task 1.7

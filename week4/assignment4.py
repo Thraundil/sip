@@ -1,9 +1,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from skimage.io import imread
+from skimage import feature
 from skimage.transform import resize
 from scipy.stats import norm
-from skimage import exposure, img_as_float
+from skimage import exposure, img_as_float, filter
 
 
 # -----------------------------------------------------------------------
@@ -18,8 +19,48 @@ from skimage import exposure, img_as_float
 #------------------------------------------------------------------------
 
 def feat_1():
-  pass
+  I = imread('images/hand.tiff')
+  scimmy_I     = filter.canny(I, low_threshold=None, high_threshold=None)
+  scimmyLow_I  = filter.canny(I, low_threshold=100.0, high_threshold=None)
+  scimmyHigh_I = filter.canny(I, low_threshold=None, high_threshold=200.0)
 
+  sigmaI       = filter.canny(I, sigma=2.0, low_threshold=None, high_threshold=None)
+  sigmaLow_I   = filter.canny(I, sigma=2.0, low_threshold=100.0, high_threshold=None)
+  sigmaHigh_I  = filter.canny(I, sigma=2.0, low_threshold=None, high_threshold=200.0)
+  allI         = filter.canny(I, sigma=2.0, low_threshold=100.0, high_threshold=200.0)
+
+  fig, ax = plt.subplots(2,2)
+  ax[0][0].imshow(I, cmap='gray')
+  ax[0][0].set_title('Original image')
+  ax[0][0].axis('off')
+  ax[0][1].imshow(scimmy_I, cmap='gray')
+  ax[0][1].set_title('canny-transformed (no thresholds)')
+  ax[0][1].axis('off')
+  ax[1][0].imshow(scimmyLow_I, cmap='gray')
+  ax[1][0].set_title('canny-transformed (low_threshold=100.0)')
+  ax[1][0].axis('off')
+  ax[1][1].imshow(scimmyHigh_I, cmap='gray')
+  ax[1][1].set_title('canny-transformed (high_threshold=200.0)')
+  ax[1][1].axis('off')
+  plt.show()
+
+  fig, ax = plt.subplots(2,2)
+  ax[0][0].imshow(sigmaI, cmap='gray')
+  ax[0][0].set_title('Original image w. Sigma 2.0')
+  ax[0][0].axis('off')
+  ax[0][1].imshow(sigmaLow_I, cmap='gray')
+  ax[0][1].set_title('canny-transformed Sigma=2.0, low threshold')
+  ax[0][1].axis('off')
+  ax[1][0].imshow(sigmaHigh_I, cmap='gray')
+  ax[1][0].set_title('canny-transformed Sigma=2.0, High threshold')
+  ax[1][0].axis('off')
+  ax[1][1].imshow(allI, cmap='gray')
+  ax[1][1].set_title('canny-transformed Sigma=2.0, both high and low Thresholds')
+  ax[1][1].axis('off')
+  plt.show()
+
+
+# NOTE: ifft( fft(I) * fft(k,I.shape) ))
   
 # -----------------------------------------------------------------------
 #                          FEATURE DETECTORS
@@ -27,7 +68,45 @@ def feat_1():
 #------------------------------------------------------------------------
 
 def feat_2():
-  pass
+  I = imread('images/modelhouses.png')
+  harris_I      = feature.corner_harris(I)
+  harrisSigma_I = feature.corner_harris(I, sigma=5.0)
+  harrisK_I     = feature.corner_harris(I, method='k', k=0.90)
+
+  harrisSigma2_I = feature.corner_harris(I, sigma=20.0)
+  harrisSigmaK_I = feature.corner_harris(I, method='k', sigma=5.0, k=0.90)
+  harrisEPS_I    = feature.corner_harris(I, eps=2, method='eps')
+  harrisAll_I    = feature.corner_harris(I, eps=1e-48, method='eps', sigma=4.2)
+
+  fig, ax = plt.subplots(2,2)
+  ax[0][0].imshow(I, cmap='gray')
+  ax[0][0].set_title('Original image "modelhouses.png"')
+  ax[0][0].axis('off')
+  ax[0][1].imshow(harris_I, cmap='gray')
+  ax[0][1].set_title('corner_harris')
+  ax[0][1].axis('off')
+  ax[1][0].imshow(harrisSigma_I, cmap='gray')
+  ax[1][0].set_title('corner_harris Sigma = 5.0')
+  ax[1][0].axis('off')
+  ax[1][1].imshow(harrisK_I, cmap='gray')
+  ax[1][1].set_title('corner_harris k = 0.90')
+  ax[1][1].axis('off')
+  plt.show()
+
+  fig, ax = plt.subplots(2,2)
+  ax[0][0].imshow(harrisSigma2_I, cmap='gray')
+  ax[0][0].set_title('corner_harris Sigma = 20.0')
+  ax[0][0].axis('off')
+  ax[0][1].imshow(harrisSigmaK_I, cmap='gray')
+  ax[0][1].set_title('corner_harris K=0.90, Sigma = 5')
+  ax[0][1].axis('off')
+  ax[1][0].imshow(harrisEPS_I, cmap='gray')
+  ax[1][0].set_title('corner_harris eps=2')
+  ax[1][0].axis('off')
+  ax[1][1].imshow(harrisAll_I, cmap='gray')
+  ax[1][1].set_title('corner_harris eps=1e-48, sigma=4.2')
+  ax[1][1].axis('off')
+  plt.show()
 
 
 # -----------------------------------------------------------------------
@@ -36,7 +115,25 @@ def feat_2():
 #------------------------------------------------------------------------
 
 def feat_3():
-  pass
+  I = imread('images/modelhouses.png')
+  harris_I = feature.corner_harris(I)
+  harris2_I = feature.corner_harris(I)
+  corner   = feature.corner_peaks(harris_I)
+
+  plt.imshow(I,cmap='gray')
+  plt.show()
+
+  for x,y in corner:
+    harris2_I[x][y] = 15
+
+  fig, ax = plt.subplots(1,2)
+  ax[0].imshow(harris_I, cmap='gray')
+  ax[0].set_title('corner_harris transformed')
+  ax[0].axis('off')
+  ax[1].imshow(harris2_I, cmap='gray')
+  ax[1].set_title('Highlighted local maxima in feature map (the white dots)')
+  ax[1].axis('off')
+  plt.show()  
 
 
 # -----------------------------------------------------------------------

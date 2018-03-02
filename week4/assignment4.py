@@ -143,8 +143,27 @@ def feat_3():
 #                                 1
 #------------------------------------------------------------------------
 
-def scale_1():
-  pass
+def feat_2(sigma):
+    # Hint for another task:
+    # ifft (fft(I) * fft(k, I.shape))
+    n = 15
+    m = 15
+    img = imread('images/modelhouses.png')
+    out = np.zeros((n, m))
+    for i in range(n):
+      for j in range(m):
+        out[i][j] = float(
+          1 / (2 * math.pi * sigma ** 2) * math.exp(-(((i - n / 2) ** 2 + (j - m / 2) ** 2) / (2.0 * sigma ** 2))))
+    imshow(out, cmap='gray')
+    show()
+
+    imshow(scipy.ndimage.filters.convolve(img, out), cmap='gray')
+    show()
+
+    new_img = imread('images/modelhouses.png')
+    new_img = scipy.ndimage.filters.gaussian_filter(new_img, sigma)
+    imshow(new_img, cmap='gray')
+    show()
 
 
 

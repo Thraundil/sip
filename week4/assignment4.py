@@ -121,6 +121,8 @@ def feat_3():
   corner   = feature.corner_peaks(harris_I)
 
   plt.imshow(I,cmap='gray')
+  plt.title('Original "modelhouses.png"')
+  plt.axis('off')
   plt.show()
 
   for x,y in corner:
@@ -131,7 +133,7 @@ def feat_3():
   ax[0].set_title('corner_harris transformed')
   ax[0].axis('off')
   ax[1].imshow(harris2_I, cmap='gray')
-  ax[1].set_title('Highlighted local maxima in feature map (the white dots)')
+  ax[1].set_title('Highlighted local maxima in feature map (ie. "the white dots")')
   ax[1].axis('off')
   plt.show()  
 
@@ -170,7 +172,7 @@ def scale_3():
 
 #feat_1()
 #feat_2()
-#feat_3()
+feat_3()
 #scale_1()
 #scale_2()
 #scale_3()

@@ -1,10 +1,14 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.pyplot import imshow, show
 from skimage.io import imread
 from skimage import feature
 from skimage.transform import resize
 from scipy.stats import norm
-from skimage import exposure, img_as_float, filter
+from skimage import exposure, img_as_float, filters
+import math
+from scipy.ndimage import filters
+
 
 
 # -----------------------------------------------------------------------
@@ -143,27 +147,36 @@ def feat_3():
 #                                 1
 #------------------------------------------------------------------------
 
-def feat_2(sigma):
-    # Hint for another task:
-    # ifft (fft(I) * fft(k, I.shape))
-    n = 15
-    m = 15
-    img = imread('images/modelhouses.png')
-    out = np.zeros((n, m))
-    for i in range(n):
-      for j in range(m):
-        out[i][j] = float(
-          1 / (2 * math.pi * sigma ** 2) * math.exp(-(((i - n / 2) ** 2 + (j - m / 2) ** 2) / (2.0 * sigma ** 2))))
-    imshow(out, cmap='gray')
-    show()
+def scale_2(sigma):
+  # Hint for another task:
+  # ifft (fft(I) * fft(k, I.shape))
+  n = 20
+  m = 20
+  img = imread('images/modelhouses.png')
+  out = np.zeros((n, m))
+  for i in range(n):
+    for j in range(m):
+      out[i][j] = float(
+        1 / (2 * math.pi * sigma ** 2) * math.exp((-((i - n / 2) ** 2 + (j - m / 2) ** 2) / (2.0 * sigma ** 2))))
+  imshow(out, cmap='gray')
+  show()
 
-    imshow(scipy.ndimage.filters.convolve(img, out), cmap='gray')
-    show()
+  img = filters.convolve(img, out)
 
-    new_img = imread('images/modelhouses.png')
-    new_img = scipy.ndimage.filters.gaussian_filter(new_img, sigma)
-    imshow(new_img, cmap='gray')
-    show()
+  new_img = imread('images/modelhouses.png')
+  #s = 2
+  #w = 5
+  #t = (((w - 1) / 2) - 0.5) / s
+  new_img = filters.gaussian_filter(new_img, sigma)
+
+  fig, ax = plt.subplots(1, 2)
+  ax[0].imshow(img, cmap='gray')
+  ax[0].set_title('Own implementation, sigma = 5.0')
+  ax[0].axis('off')
+  ax[1].imshow(new_img, cmap='gray')
+  ax[1].set_title('Scale function, sigma = 5.0')
+  ax[1].axis('off')
+  plt.show()
 
 
 
@@ -172,8 +185,6 @@ def feat_2(sigma):
 #                                 2
 #------------------------------------------------------------------------
 
-def scale_2():
-  pass
 
 
 
@@ -191,7 +202,7 @@ def scale_3():
 
 #feat_1()
 #feat_2()
-feat_3()
+#feat_3()
 #scale_1()
-#scale_2()
+scale_2(5.0)
 #scale_3()

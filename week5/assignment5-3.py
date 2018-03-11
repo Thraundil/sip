@@ -10,6 +10,7 @@ import math
 from scipy.ndimage import filters
 import cv2
 from scipy import fftpack
+from scipy.fftpack import fftfreq
 import copy
 
 
@@ -68,26 +69,18 @@ def task_3_1(a,b,c):
 # -----------------------------------------------------------------------
 #                             Task 3.2
 #------------------------------------------------------------------------
-from scipy.fftpack import fftfreq
 
-def task_3_2(input_array,shift):
-    shift_rows,shift_cols = shift
-    shift_rows *= -1
-    shift_cols *= -1
-    nr,nc = input_array.shape
-    Nr, Nc = fftfreq(nr), fftfreq(nc)
-    Nc,Nr = np.meshgrid(Nc,Nr)
-    value = np.meshgrid(Nc,Nr)
-    fft_inputarray = np.fft.fft2(input_array)
-    fourier_shift = np.exp(1j*2*np.pi*((shift_rows*Nr)+(shift_cols*Nc)))
-    output_array = np.fft.ifft2(fft_inputarray*fourier_shift)
-    output_array = np.real(output_array)
-    #imshow(output_array, cmap='gray', interpolation='nearest')
-    #show()
+
+def task_3_1_3(input_array,shift):
+    xs,ys = np.meshgrid(fftfreq(input_array.shape[1]),fftfreq(input_array.shape[0]))
+    print (xs.shape)
+    # The j is pythons convention for complex numbers
+    fourier_shift = np.exp(1j*2*np.pi*((-shift[0]*ys)+(-shift[1]*xs)))
+    output_array = np.real(np.fft.ifft2(np.fft.fft2(input_array)*fourier_shift))
 
     fig, ax = plt.subplots(1, 2)
     ax[0].imshow(input_array,cmap='gray', interpolation='nearest')
-    ax[0].set_title('orignal image')
+    ax[0].set_title('Orignal image')
     ax[1].imshow(output_array,cmap='gray', interpolation='nearest')
     ax[1].set_title('Fourier method')
     plt.show()
@@ -99,7 +92,8 @@ def task_3_2(input_array,shift):
 #------------------------------------------------------------------------
 # Number of pixel to move in the x and y direction
 # C indicates whether or not we move by integers or real values.
-task_3_1(2,2,0)
+img = imread('images/basic_shapes.png')
+#task_3_1(2,2,0)
 image = np.zeros((20, 20))
 image[10, 10] = 1
-#task_3_2(image,[0.6,1.2])
+task_3_1_3(img,[15.6,14.2])

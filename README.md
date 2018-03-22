@@ -19,3 +19,6 @@ https://www.overleaf.com/14423606svnwvyywspvt#/55410666/
 ### Week 6:
 
 ### Week 7:
+https://www.overleaf.com/14946769zqzsyfqskywq#/56773286/
+
+### Week 8:

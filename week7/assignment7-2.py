@@ -53,8 +53,9 @@ def mr8_filter_bank(I, sigmas, angles):
     second_order.append(np.max(values, axis=0))
   
   
-  filter_responses = [gaussian, laplacian, first_order, second_order]
-  return filter_responses
+  filters = [gaussian, laplacian, first_order[0], first_order[1], 
+             first_order[2], second_order[0], second_order[1], second_order[2]]
+  return filters
   
 
 # -----------------------------------------------------------------------
@@ -106,9 +107,9 @@ def task_2_1():
       
 
 # -----------------------------------------------------------------------
-#                             Task 2.2
+#                             Task 2.2 i.
 #------------------------------------------------------------------------
-def task_2_2():
+def task_2_2_i():
   I = imread('images/linseeds1-a-p001.png', asgrey=True)
   plt.imshow(I, cmap='gray')
   plt.title('Original image')
@@ -120,24 +121,34 @@ def task_2_2():
   filter_responses = mr8_filter_bank(I, sigmas, angles)
   
   # Illustrate the 8 filter responses
-  plt.imshow(filter_responses[0], cmap='gray')
-  plt.title('Gaussian filter')
-  plt.show()
-
-  plt.imshow(filter_responses[1], cmap='gray')
-  plt.title('Laplacian')
-  plt.show()
+  titles = ['Gaussian filter', 'Laplacian', 
+            '1st order Gaussian derivative for sigma=' + str(sigmas[1]),
+            '1st order Gaussian derivative for sigma=' + str(sigmas[2]),
+            '1st order Gaussian derivative for sigma=' + str(sigmas[3]),
+            '2nd order Gaussian derivative for sigma=' + str(sigmas[1]),
+            '2nd order Gaussian derivative for sigma=' + str(sigmas[2]),
+            '2nd order Gaussian derivative for sigma=' + str(sigmas[3])]
   
-  for i in range(len(sigmas)-1):
-    first_order_responses = filter_responses[2]
-    plt.imshow(first_order_responses[i], cmap='gray')
-    plt.title('1st order Gaussian derivative for sigma=' + str(sigmas[i+1]))
+  for i in range(8):
+    plt.imshow(filter_responses[i], cmap='gray')
+    plt.title(titles[i])
     plt.show()
-    
-    second_order_responses = filter_responses[3]
-    plt.imshow(second_order_responses[i], cmap='gray')
-    plt.title('2nd order Gaussian derivative for sigma=' + str(sigmas[i+1]))
-    plt.show()
+
+
+# -----------------------------------------------------------------------
+#                             Task 2.2 i.
+#------------------------------------------------------------------------
+def task_2_2_ii():
+  img1 = imread('images/canvas1-a-p001.png'  , asgrey=True)
+  img2 = imread('images/cushion1-a-p001.png' , asgrey=True)
+  img3 = imread('images/linseeds1-a-p001.png', asgrey=True)
+  img4 = imread('images/sand1-a-p001.png'    , asgrey=True)
+  img5 = imread('images/seat2-a-p001.png'    , asgrey=True)
+  img6 = imread('images/stone1-a-p001.png'   , asgrey=True)
+  
+  # Apply the filter bank for each of the six images
+  
+
 
 
 # -----------------------------------------------------------------------
@@ -145,4 +156,5 @@ def task_2_2():
 #------------------------------------------------------------------------
 
 #task_2_1()
-#task_2_2()
+#task_2_2_i()
+#task_2_2_ii()

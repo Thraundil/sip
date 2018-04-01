@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 from math import pi, cos, sin
 from skimage.io import imread
@@ -139,16 +140,45 @@ def task_2_2_i():
 #                             Task 2.2 i.
 #------------------------------------------------------------------------
 def task_2_2_ii():
-  img1 = imread('images/canvas1-a-p001.png'  , asgrey=True)
-  img2 = imread('images/cushion1-a-p001.png' , asgrey=True)
-  img3 = imread('images/linseeds1-a-p001.png', asgrey=True)
-  img4 = imread('images/sand1-a-p001.png'    , asgrey=True)
-  img5 = imread('images/seat2-a-p001.png'    , asgrey=True)
-  img6 = imread('images/stone1-a-p001.png'   , asgrey=True)
+  images = []
+  images.append(imread('images/canvas1-a-p001.png'  , asgrey=True))
+  images.append(imread('images/cushion1-a-p001.png' , asgrey=True))
+  images.append(imread('images/linseeds1-a-p001.png', asgrey=True))
+  images.append(imread('images/sand1-a-p001.png'    , asgrey=True))
+  images.append(imread('images/seat2-a-p001.png'    , asgrey=True))
+  images.append(imread('images/stone1-a-p001.png'   , asgrey=True))
   
   # Apply the filter bank for each of the six images
+  filters = []
+  sigmas = [10, 1, 2, 4]
+  angles = [0, pi/6, 2*pi/6, 3*pi/6, 4*pi/6, 5*pi/6]
   
+  for i in range(len(images)):
+    filters.append(mr8_filter_bank(images[i], sigmas, angles))
+    
+  # Get training data
+  training_data = np.empty([0,8])
+  for i in range(len(images)):
+    # Get the 8 response filters and flatten them
+    filterr = filters[i]
+    f_0 = filterr[0].flatten()
+    f_1 = filterr[1].flatten()
+    f_2 = filterr[2].flatten()
+    f_3 = filterr[3].flatten()
+    f_4 = filterr[4].flatten()
+    f_5 = filterr[5].flatten()
+    f_6 = filterr[6].flatten()
+    f_7 = filterr[7].flatten()
+    
+    # Form 8 dimensional vector of the filter responses at each pixel
+    data = list(zip(f_0, f_1, f_2, f_3, f_4, f_5, f_6, f_7))    
+    training_data = np.vstack((training_data, data))
 
+    
+  # Apply K-means algorithm with K = 60
+  kmeans = KMeans(n_clusters=60).fit(training_data)
+  print(kmeans.cluster_centers_)
+  
 
 
 # -----------------------------------------------------------------------

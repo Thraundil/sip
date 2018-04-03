@@ -17,8 +17,10 @@ https://www.overleaf.com/14161134jxccpvywkzzz
 https://www.overleaf.com/14423606svnwvyywspvt#/55410666/
 
 ### Week 6:
+* Solo assignment *
 
 ### Week 7:
 https://www.overleaf.com/14946769zqzsyfqskywq#/56773286/
 
 ### Week 8:
+https://www.overleaf.com/15278852mhdfkgtgywhk#/57820728/

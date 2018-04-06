@@ -1,3 +1,4 @@
+import math
 import numpy as np
 import matplotlib.pyplot as plt
 from skimage.io import imread
@@ -10,31 +11,31 @@ from skimage.transform import hough_line, hough_line_peaks
 #------------------------------------------------------------------------
 
 def task_2_1(img):
-  theta_res, dist_res = 1, 1
-  rows, cols = img.shape[0], img.shape[1]
-  
-  theta = np.linspace(-90.0, 0.0, np.ceil(90.0/theta_res) + 1.0)
-  theta = np.concatenate((theta, -theta[len(theta)-2::-1]))
- 
-  D = np.sqrt((rows - 1)**2 + (cols - 1)**2)
-  q = np.ceil(D/dist_res)
-  n = 2*q + 1
-  dist = np.linspace(-q*dist_res, q*dist_res, n)
+
+  # Define distance range (diagonal length of the image)
+  rows, cols = img.shape[0], img.shape[1]  
+  diag = np.ceil(np.sqrt((rows - 1)**2 + (cols - 1)**2))
+  dist_range = np.linspace(-diag, diag, 2*diag+1)
+    
+  # Define theta range from origin to the line (-90 to 90 degrees)
+  theta_range = np.linspace(-90, 90, 181)
   
   # Initialize values in accumulator to zero
-  h = np.zeros((len(dist), len(theta)))
+  h = np.zeros((len(dist_range), len(theta_range)))
   
-  # Iterate through each pixel pair (x,y)
-  for x in range(rows):
-    for y in range(cols):
-      if img[x, y]:
-        for t in range(len(theta)):
-          distVal = y*np.cos(theta[t]*np.pi/180.0) + \
-              x*np.sin(theta[t]*np.pi/180)
-          index = np.nonzero(np.abs(dist-distVal) == np.min(np.abs(dist-distVal)))[0]
-          h[index[0], t] += 1
+  # Iterate through each pixel pair (x,y) that is not 0
+  xs, ys = np.nonzero(img)
+  for i in range(len(xs)):
+    x = xs[i]
+    y = ys[i]      
+        
+    # Calculate rho with a point at each angle from -90 to 90 degrees
+    for theta in range(len(theta_range)):
+      val = x * np.cos(theta_range[theta] * math.pi/180.0) + y * np.sin(theta_range[theta] * math.pi/180)
+      rho = np.nonzero(np.abs(dist_range - val) == np.min(np.abs(dist_range - val)))[0][0]
+      h[rho, theta] += 1
   
-  return h, theta, dist  
+  return h, theta_range, dist_range
     
 
 
@@ -48,9 +49,12 @@ def task_2_2():
   plt.title('Original image')
   plt.show()
 
+  # Test our implementation on the image
   h, theta, dist = task_2_1(img)
+  
+  # Plot hough transform of image and detected lines
   plt.imshow(h, cmap='gray')
-  plt.title('Implementation')
+  plt.title('Implementation: Hough transform of image')
   plt.show()
   
   plt.imshow(img, cmap='gray')
@@ -58,7 +62,6 @@ def task_2_2():
     y1 = (dist - 0 * np.cos(angle)) / np.sin(angle)
     y2 = (dist - img.shape[1] * np.cos(angle)) / np.sin(angle)
     plt.plot((0, img.shape[1]), (y1, y2), '-r')
-    
   plt.title('Implementation: Detected lines')
   plt.show()
       
@@ -67,16 +70,15 @@ def task_2_2():
   hspace, angle, dist = hough_line(img)
 
   plt.imshow(hspace, cmap='gray')
-  plt.title('hough_line: Hough transform of image')
+  plt.title('hough_line(): Hough transform of image')
   plt.show()
   
   plt.imshow(img, cmap='gray')
   for _, angle, dist in zip(*hough_line_peaks(hspace, angle, dist)):
     y1 = (dist - 0 * np.cos(angle)) / np.sin(angle)
     y2 = (dist - img.shape[1] * np.cos(angle)) / np.sin(angle)
-    plt.plot((0, img.shape[1]), (y1, y2), '-r')
-    
-  plt.title('hough_line: Detected lines')
+    plt.plot((0, img.shape[1]), (y1, y2), '-r')  
+  plt.title('hough_line(): Detected lines')
   plt.show()
 
 

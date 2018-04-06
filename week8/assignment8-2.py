@@ -2,7 +2,8 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 from skimage.io import imread
-from skimage.transform import hough_line, hough_line_peaks
+from skimage.transform import hough_line, hough_line_peaks, hough_circle
+from skimage.filter import canny
 
 
 
@@ -87,7 +88,23 @@ def task_2_2():
 #------------------------------------------------------------------------
 
 def task_2_3():
-  pass
+  I = imread('images/coins.png')
+  edges_I = canny(I)
+
+  radi = np.arange(3, 30)
+  hough1 = hough_circle(I, radi)
+  hough2 = hough_circle(edges_I, radi)
+
+  print hough1.shape
+
+  fig, ax = plt.subplots(1,2)
+  ax[0].imshow(I, cmap='gray')
+  ax[1].imshow(hough2[0], cmap='gray')
+  ax[0].set_title('Original image')
+  ax[0].axis('off')
+  ax[1].set_title('Original Image segmented via Hough Circle')
+  ax[1].axis('off')
+  plt.show()
 
 
 # -----------------------------------------------------------------------
